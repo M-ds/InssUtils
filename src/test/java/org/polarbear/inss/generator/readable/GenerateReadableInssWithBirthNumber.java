@@ -1,4 +1,4 @@
-package org.polarbear.inss.generator.util;
+package org.polarbear.inss.generator.readable;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-public class GenerateInssWithIntBirthNumber {
+public class GenerateReadableInssWithBirthNumber {
 
     private final InssGenerator underTest = new InssGeneratorImpl();
 
     @Test
     void invalidBirthNumber() {
-        Assertions.assertThrows(InvalidBirthNumberException.class, () -> underTest.generateInss(
+        Assertions.assertThrows(InvalidBirthNumberException.class, () -> underTest.generateReadableInss(
                 RandomnessUtil.generateRandomBirthDate(),
                 999,
                 Gender.FEMALE
@@ -28,7 +28,7 @@ public class GenerateInssWithIntBirthNumber {
 
     @Test
     void validBirthNumber() throws InvalidBirthNumberException {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1999, 3, 27),
                 1,
                 Gender.MALE

@@ -1,22 +1,22 @@
-package org.polarbear.inss.generator.util.test.java.org.polarbear.inss.generator.util;
+package org.polarbear.inss.generator.readable;
 
 import org.junit.jupiter.api.Test;
-import org.polarbear.inss.generator.util.main.java.org.polarbear.inss.InssGenerator;
-import org.polarbear.inss.generator.util.main.java.org.polarbear.inss.domain.Gender;
-import org.polarbear.inss.generator.util.main.java.org.polarbear.inss.domain.Inss;
-import org.polarbear.inss.generator.util.main.java.org.polarbear.inss.generator.InssGeneratorImpl;
+import org.polarbear.inss.domain.Gender;
+import org.polarbear.inss.domain.Inss;
+import org.polarbear.inss.InssGenerator;
+import org.polarbear.inss.generator.InssGeneratorImpl;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GenerateInssWithPredefinedValues {
+public class GenerateReadableInssWithPredefinedValues {
 
     private final InssGenerator underTest = new InssGeneratorImpl();
 
     @Test
     void generateInssForMale() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(2013, 10, 7),
                 "257",
                 Gender.MALE
@@ -26,7 +26,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generateInssForFemale() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1993, 2, 28),
                 "147",
                 Gender.FEMALE
@@ -36,7 +36,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generateInssForMaleHappyFlow() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1975, 6, 30),
                 "151",
                 Gender.MALE
@@ -46,7 +46,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generateInssForFemaleWith9AtEnd() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1969, 9, 1),
                 "149",
                 Gender.FEMALE
@@ -56,7 +56,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generatePredefinedInssAfter2000() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(2010, 3, 3),
                 "33",
                 Gender.MALE
@@ -66,7 +66,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generateInssWithCorrectedBirthNumber() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(2010, 3, 3),
                 "33",
                 Gender.FEMALE
@@ -76,7 +76,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generateInssWithBirthNumberOf999() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1935, 3, 3),
                 "999",
                 Gender.MALE
@@ -86,7 +86,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void generateInssForFemaleWithBirthNumber999() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 2, 28),
                 "999",
                 Gender.FEMALE
@@ -96,7 +96,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void withBirtNumberConsistOnlyOneNumberMale() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 2, 28),
                 "1",
                 Gender.MALE
@@ -106,7 +106,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void withBirtNumberConsistOnlyOneNumberFemale() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 2, 5),
                 "5",
                 Gender.FEMALE
@@ -116,7 +116,7 @@ public class GenerateInssWithPredefinedValues {
 
     @Test
     void withBirthNumberOf9() {
-        Inss result = underTest.generateInss(
+        Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 5, 28),
                 "9",
                 Gender.FEMALE

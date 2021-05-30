@@ -1,4 +1,4 @@
-package org.polarbear.inss.generator.util;
+package org.polarbear.inss.generator.readable;
 
 import org.junit.jupiter.api.Test;
 import org.polarbear.inss.InssGenerator;
@@ -13,7 +13,7 @@ class GenerateRandomInss {
 
     @Test
     void generateRandomInss() {
-        Inss result = underTest.generateRandomInss();
+        Inss result = underTest.generateReadableInss();
         assertNotNull(result);
     }
 

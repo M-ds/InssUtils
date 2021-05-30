@@ -8,10 +8,16 @@ import java.time.LocalDate;
 
 public interface InssGenerator {
 
-    Inss generateRandomInss();
+    Inss generateDefaultInss();
 
-    Inss generateInss(LocalDate birthDate, String birthNumber, Gender gender);
+    Inss generateReadableInss();
 
-    Inss generateInss(LocalDate birthDate, int birthNumber, Gender gender) throws InvalidBirthNumberException;
+    Inss generateReadableInss(LocalDate birthDate, String birthNumber, Gender gender);
+
+    Inss generateReadableInss(LocalDate birthDate, int birthNumber, Gender gender) throws InvalidBirthNumberException;
+
+    Inss generateMaleInss(LocalDate birthDate);
+
+    Inss generateFemaleInss(LocalDate birthDate);
 
 }

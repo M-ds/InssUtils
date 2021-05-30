@@ -1,4 +1,4 @@
-package org.polarbear.inss.generator.util;
+package org.polarbear.inss.generator.readable;
 
 import java.time.LocalDate;
 import java.util.HashMap;

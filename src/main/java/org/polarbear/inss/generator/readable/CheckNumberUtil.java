@@ -1,4 +1,4 @@
-package org.polarbear.inss.generator.util.main.java.org.polarbear.inss.generator.util;
+package org.polarbear.inss.generator.readable;
 
 public class CheckNumberUtil {
 
