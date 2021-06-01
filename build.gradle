@@ -36,8 +36,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/m-ds/inssutils")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("m-ds")
-                password = project.findProperty("gpr.key") ?: System.getenv("GitHubPackagesToken")
+                username = project.findProperty("gpr.user") ?: System.getenv("GRP_USER")
+                password = project.findProperty("gpr.key") ?: System.getenv("GRP_API_KEY")
             }
         }
     }

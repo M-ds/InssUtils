@@ -38,6 +38,7 @@ jobs:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
       - name: Publish package
-        run: gradle publish
         env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          GPR_USER: 'm-ds'
+          GRP_API_KEY: $ {{ secrets.GITHUB_TOKEN }}
+        run: gradle publish
