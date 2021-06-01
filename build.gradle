@@ -1,11 +1,8 @@
 plugins {
-    id "java"
-    id "jacoco"
-    id "maven-publish"
+    id("java")
+    id("jacoco")
+    id("maven-publish")
 }
-
-group = "org.polarbear"
-version = "0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -40,7 +37,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/m-ds/inssutils")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("m-ds")
-                password = project.findProperty("gpr.key") ?: System.getenv("github_token")
+                password = project.findProperty("gpr.key") ?: System.getenv("Publishing GitHubPackages")
             }
         }
     }
