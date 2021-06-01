@@ -1,11 +1,11 @@
 plugins {
     id "java"
     id "jacoco"
+    id "maven-publish"
 }
 
 group = "org.polarbear"
 version = "0.1-SNAPSHOT"
-sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -31,4 +31,22 @@ jacocoTestReport {
 
 jacoco {
     toolVersion = "0.8.5"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/m-ds/inssutils")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("m-ds")
+                password = project.findProperty("gpr.key") ?: System.getenv("github_token")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }
