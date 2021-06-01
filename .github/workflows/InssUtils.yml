@@ -39,6 +39,6 @@ jobs:
 
       - name: Publish package
         env:
-          GPR_USER: 'm-ds'
-          GRP_API_KEY: $ {{ secrets.GITHUB_TOKEN }}
+          GPR_USER: ${{ secrets.GRP_USER }}
+          GRP_API_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: gradle publish
