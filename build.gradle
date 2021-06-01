@@ -36,8 +36,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/m-ds/inssutils")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("m-ds")
-                password = project.findProperty("gpr.key") ?: System.getenv("Publishing GitHubPackages")
+                username = System.getenv("m-ds")
+                password = System.getenv("Publishing GitHubPackages")
             }
         }
     }
