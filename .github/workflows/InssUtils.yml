@@ -5,18 +5,23 @@ on:
     branches:
       - main
       - develop
+
+    tags:
+      - '*'
+
   pull_request:
     branches:
       - main
       - develop
 
+  release:
+    types:
+      - created
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-
     steps:
       - uses: actions/checkout@v2
 
@@ -37,8 +42,10 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
-      - name: Publish package
-        env:
-          GPR_USER: ${{ secrets.GRP_USER }}
-          GRP_API_KEY: ${{ secrets.GITHUB_TOKEN }}
-        run: gradle publish
+      # Upload an artifact when a tag is pushed, or a new release is created with GitHub.
+      - name: Upload artifact
+        if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'release' && github.event.action == 'created')
+        uses: actions/upload-artifact@v2
+        with:
+          name: InssUtils
+          path: build/libs/InssUtils.jar
