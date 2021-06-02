@@ -1,0 +1,22 @@
+# This is a basic workflow that is manually triggered
+
+name: Upload Artifact on Release
+
+on:
+ push:
+  tags:
+    - '*'
+ release:
+  types:
+    - created
+
+jobs:
+
+  publish:
+  - name: Download a Build Artifact
+    uses: actions/download-artifact@v2.0.9
+    with:
+      # Artifact name
+      name: # optional
+      # Destination path
+      path: # optional
