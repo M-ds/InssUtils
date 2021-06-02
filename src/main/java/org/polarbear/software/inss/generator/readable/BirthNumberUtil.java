@@ -1,6 +1,6 @@
-package org.polarbear.inss.generator.readable;
+package org.polarbear.software.inss.generator.readable;
 
-import org.polarbear.inss.domain.Gender;
+import org.polarbear.software.inss.domain.Gender;
 
 public class BirthNumberUtil {
 

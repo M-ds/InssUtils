@@ -1,7 +1,7 @@
-package org.polarbear.inss.generator.readable;
+package org.polarbear.software.inss.generator.readable;
 
-import org.polarbear.inss.domain.Gender;
-import org.polarbear.inss.domain.Inss;
+import org.polarbear.software.inss.domain.Gender;
+import org.polarbear.software.inss.domain.Inss;
 
 import java.time.LocalDate;
 import java.util.Map;

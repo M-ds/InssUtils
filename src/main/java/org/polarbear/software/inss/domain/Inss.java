@@ -1,4 +1,4 @@
-package org.polarbear.inss.domain;
+package org.polarbear.software.inss.domain;
 
 public class Inss {
     private final String inss;

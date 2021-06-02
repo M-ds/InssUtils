@@ -1,12 +1,13 @@
-package org.polarbear.inss.generator;
+package org.polarbear.software.inss.generator;
 
-import org.polarbear.inss.domain.Gender;
-import org.polarbear.inss.domain.Inss;
-import org.polarbear.inss.exception.InvalidBirthNumberException;
-import org.polarbear.inss.InssGenerator;
-import org.polarbear.inss.generator.readable.GenerateInss;
-import org.polarbear.inss.generator.readable.InssFormat;
-import org.polarbear.inss.util.RandomnessUtil;
+import org.polarbear.software.inss.domain.Gender;
+import org.polarbear.software.inss.domain.Inss;
+import org.polarbear.software.inss.exception.InvalidBirthNumberException;
+import org.polarbear.software.inss.InssGenerator;
+import org.polarbear.software.inss.generator.readable.GenerateInss;
+import org.polarbear.software.inss.generator.readable.InssFormat;
+import org.polarbear.software.inss.util.BirthNumberUtil;
+import org.polarbear.software.inss.util.RandomnessUtil;
 
 import java.time.LocalDate;
 
@@ -44,10 +45,10 @@ public class InssGeneratorImpl implements InssGenerator {
 
     @Override
     public Inss generateReadableInss(final LocalDate birthDate, final int birthNumber, final Gender gender) throws InvalidBirthNumberException {
-        if (birthNumber > 997) {
-            throw new InvalidBirthNumberException("BirthNumber can not be greater than 999. Current number is: " + birthNumber);
-        }
         String birthNumberString = String.valueOf(birthNumber);
+        if (!BirthNumberUtil.isValidBirthNumber(birthNumberString)) {
+            throw new InvalidBirthNumberException("BirthNumber can not be greater than 997. Current number is: " + birthNumber);
+        }
         return generateCompleteInssNumber(
                 InssFormat.READABLE,
                 birthDate,

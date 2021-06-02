@@ -1,4 +1,4 @@
-package org.polarbear.inss.generator.readable;
+package org.polarbear.software.inss.generator.readable;
 
 import java.util.Map;
 

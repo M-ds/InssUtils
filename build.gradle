@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("jacoco")
+    // Necessary to publish artifacts after int he publish section
     id("maven-publish")
 }
 
@@ -36,16 +37,16 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/m-ds/inssutils")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GRP_USER")
-                password = project.findProperty("gpr.key") ?: System.getenv("GRP_API_KEY")
+                username = project.findProperty("gpr.user") ?: System.getenv("gpr.user")
+                password = project.findProperty("gpr.key") ?: System.getenv("gpr.key")
             }
         }
     }
     publications {
         gpr(MavenPublication) {
-            groupId = 'org.mds'
+            groupId = 'org.polarbear.software'
             artifactId = 'inssutils'
-            version = '0.0.1'
+            version = '0.0.2'
 
             from(components.java)
         }

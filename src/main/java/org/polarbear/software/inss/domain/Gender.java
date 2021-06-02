@@ -1,4 +1,4 @@
-package org.polarbear.inss.domain;
+package org.polarbear.software.inss.domain;
 
 public enum Gender {
     MALE,

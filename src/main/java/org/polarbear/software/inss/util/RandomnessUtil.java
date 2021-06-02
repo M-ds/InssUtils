@@ -1,6 +1,6 @@
-package org.polarbear.inss.util;
+package org.polarbear.software.inss.util;
 
-import org.polarbear.inss.domain.Gender;
+import org.polarbear.software.inss.domain.Gender;
 
 import java.time.LocalDate;
 import java.util.Random;
