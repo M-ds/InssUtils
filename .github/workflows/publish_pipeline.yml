@@ -1,6 +1,4 @@
-# This is a basic workflow that is manually triggered
-
-name: Upload Artifact on Release
+name: Artifact Deployment
 
 on:
  push:

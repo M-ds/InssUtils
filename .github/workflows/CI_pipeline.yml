@@ -1,4 +1,4 @@
-name: InssUtils Workflow
+name: CI Pipeline
 
 on:
   push:
