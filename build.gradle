@@ -45,9 +45,9 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
-            groupId = 'org.polarbear.software'
+            groupId = 'org.mds'
             artifactId = 'inssutils'
-            version = '0.0.2'
+            version = '0.0.4'
 
             from(components.java)
         }
