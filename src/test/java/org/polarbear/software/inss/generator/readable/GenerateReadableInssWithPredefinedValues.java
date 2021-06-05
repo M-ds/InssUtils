@@ -1,10 +1,13 @@
 package org.polarbear.software.inss.generator.readable;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.polarbear.software.inss.domain.Gender;
 import org.polarbear.software.inss.domain.Inss;
 import org.polarbear.software.inss.InssGenerator;
+import org.polarbear.software.inss.exception.InvalidBirthNumberException;
 import org.polarbear.software.inss.generator.InssGeneratorImpl;
+import org.polarbear.software.inss.util.RandomnessUtil;
 
 import java.time.LocalDate;
 
@@ -15,7 +18,7 @@ public class GenerateReadableInssWithPredefinedValues {
     private final InssGenerator underTest = new InssGeneratorImpl();
 
     @Test
-    void generateInssForMale() {
+    void generateInssForMale() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(2013, 10, 7),
                 "257",
@@ -25,7 +28,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generateInssForFemale() {
+    void generateInssForFemale() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1993, 2, 28),
                 "147",
@@ -35,7 +38,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generateInssForMaleHappyFlow() {
+    void generateInssForMaleHappyFlow() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1975, 6, 30),
                 "151",
@@ -45,7 +48,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generateInssForFemaleWith9AtEnd() {
+    void generateInssForFemaleWith9AtEnd() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1969, 9, 1),
                 "149",
@@ -55,7 +58,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generatePredefinedInssAfter2000() {
+    void generatePredefinedInssAfter2000() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(2010, 3, 3),
                 "33",
@@ -65,7 +68,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generateInssWithCorrectedBirthNumber() {
+    void generateInssWithCorrectedBirthNumber() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(2010, 3, 3),
                 "33",
@@ -75,7 +78,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generateInssWithBirthNumberOf999() {
+    void generateInssWithBirthNumberOf999() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1935, 3, 3),
                 "999",
@@ -85,7 +88,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void generateInssForFemaleWithBirthNumber999() {
+    void generateInssForFemaleWithBirthNumber999() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 2, 28),
                 "999",
@@ -95,7 +98,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void withBirtNumberConsistOnlyOneNumberMale() {
+    void withBirtNumberConsistOnlyOneNumberMale() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 2, 28),
                 "1",
@@ -105,7 +108,7 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void withBirtNumberConsistOnlyOneNumberFemale() {
+    void withBirtNumberConsistOnlyOneNumberFemale() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 2, 5),
                 "5",
@@ -115,13 +118,33 @@ public class GenerateReadableInssWithPredefinedValues {
     }
 
     @Test
-    void withBirthNumberOf9() {
+    void withBirthNumberOf9() throws InvalidBirthNumberException {
         Inss result = underTest.generateReadableInss(
                 LocalDate.of(1988, 5, 28),
                 "9",
                 Gender.FEMALE
         );
         assertEquals("88.05.28-010.63", result.getInss());
+    }
+
+    @Test
+    void assertErrorIsThrown() {
+        InvalidBirthNumberException error = Assertions.assertThrows(InvalidBirthNumberException.class, () -> underTest.generateReadableInss(
+                RandomnessUtil.generateRandomBirthDate(),
+                "abc",
+                RandomnessUtil.generateRandomGender()
+        ));
+        assertEquals("Birth Number is invalid, it should only contain numbers. Provided input: abc", error.getMessage());
+    }
+
+    @Test
+    void invalidBirtNumberThrowsError() {
+        InvalidBirthNumberException error = Assertions.assertThrows(InvalidBirthNumberException.class, () -> underTest.generateReadableInss(
+                RandomnessUtil.generateRandomBirthDate(),
+                "123.0",
+                RandomnessUtil.generateRandomGender()
+        ));
+        assertEquals("Birth Number is invalid, it should only contain numbers. Provided input: 123.0", error.getMessage());
     }
 
 }
