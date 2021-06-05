@@ -42,7 +42,7 @@ public class GenerateDefaultInss {
         Inss result = underTest.generateDefaultInss(
                 LocalDate.of(1948, 2, 29),
                 "12",
-                Gender.MALE
+                Gender.FEMALE
         );
         assertEquals("48022901243", result.getInss());
     }
