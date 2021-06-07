@@ -23,4 +23,3 @@ jobs:
         env:
           PUBLISH_USERNAME: ${{ secrets.USERNAME }}
           PUBLISH_API_KEY: ${{ secrets.PUBLISH_API_KEY }}
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
