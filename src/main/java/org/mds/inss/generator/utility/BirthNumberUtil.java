@@ -2,6 +2,7 @@ package org.mds.inss.generator.utility;
 
 import org.mds.inss.domain.Gender;
 import org.mds.inss.generator.format.InssFormatUtil;
+import org.mds.inss.util.GeneralBirthNumberUtil;
 
 public class BirthNumberUtil {
 
@@ -73,11 +74,11 @@ public class BirthNumberUtil {
     private static int correctLastNumberOfBirthNumberIfNecessary(final int lastTwoBirthNumbers, final Gender gender) {
         int lastTwoBirthNumbersModified = lastTwoBirthNumbers;
         if (Gender.MALE.equals(gender)) {
-            if (lastTwoBirthNumbersModified % 2 == 0) {
+            if (GeneralBirthNumberUtil.isEven(lastTwoBirthNumbersModified)) {
                 lastTwoBirthNumbersModified += 1;
             }
         } else {
-            if (lastTwoBirthNumbersModified % 2 != 0) {
+            if (GeneralBirthNumberUtil.isOdd(lastTwoBirthNumbers)) {
                 lastTwoBirthNumbersModified += 1;
             }
         }

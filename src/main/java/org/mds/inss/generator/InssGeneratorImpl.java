@@ -5,7 +5,7 @@ import org.mds.inss.domain.Gender;
 import org.mds.inss.domain.Inss;
 import org.mds.inss.exception.InvalidBirthNumberException;
 import org.mds.inss.domain.InssFormat;
-import org.mds.inss.util.BirthNumberUtil;
+import org.mds.inss.util.GeneralBirthNumberUtil;
 import org.mds.inss.util.RandomnessUtil;
 import org.mds.inss.generator.utility.Generator;
 
@@ -95,7 +95,7 @@ public class InssGeneratorImpl implements InssGenerator {
 
     @Override
     public Inss generateDefaultInss(final LocalDate birthDate, final String birthNumber, final Gender gender) throws InvalidBirthNumberException {
-        if (!BirthNumberUtil.isValidBirthNumber(birthNumber)) {
+        if (GeneralBirthNumberUtil.isInvalidBirthNumber(birthNumber)) {
             throw new InvalidBirthNumberException("Birth Number is invalid, it should only contain numbers. Provided input: " + birthNumber);
         }
         return generateCompleteInssNumber(
@@ -120,7 +120,7 @@ public class InssGeneratorImpl implements InssGenerator {
 
     @Override
     public Inss generateReadableInss(final LocalDate birthDate, final String birthNumber, final Gender gender) throws InvalidBirthNumberException {
-        if (!BirthNumberUtil.isValidBirthNumber(birthNumber)) {
+        if (GeneralBirthNumberUtil.isInvalidBirthNumber(birthNumber)) {
             throw new InvalidBirthNumberException("Birth Number is invalid, it should only contain numbers. Provided input: " + birthNumber);
         }
         return generateCompleteInssNumber(
@@ -184,7 +184,7 @@ public class InssGeneratorImpl implements InssGenerator {
 
     @Override
     public Inss generateInss(final InssFormat inssFormat, final LocalDate birthDate, final String birthNumber, final Gender gender) throws InvalidBirthNumberException {
-        if (!BirthNumberUtil.isValidBirthNumber(birthNumber)) {
+        if (GeneralBirthNumberUtil.isInvalidBirthNumber(birthNumber)) {
             throw new InvalidBirthNumberException("Birth Number is invalid, it should only contain numbers. Provided input: " + birthNumber);
         }
         return generateCompleteInssNumber(
