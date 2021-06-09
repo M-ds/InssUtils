@@ -47,7 +47,7 @@ public class GenerateDotInss {
     }
 
     @Test
-    void AssertionErrorIsThrown() {
+    void assertionErrorIsThrown() {
         InvalidBirthNumberException error = Assertions.assertThrows(InvalidBirthNumberException.class, () -> underTest.generateInss(
                 InssFormat.ONLY_DOTS,
                 RandomnessUtil.generateRandomBirthDate(),

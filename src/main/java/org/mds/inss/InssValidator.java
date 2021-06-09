@@ -12,5 +12,5 @@ public interface InssValidator {
 
     boolean isFemaleInss(final String inss) throws InvalidInssFormat;
 
-    LocalDate extractBirthDate(final String inss);
+    LocalDate extractBirthDate(final String inss) throws InvalidInssFormat;
 }
