@@ -22,7 +22,7 @@ Gradle Groovy DSL
 
 ```
 dependencies {
-    implementation 'org.mds.inssutils:0.0.4'
+    implementation 'org.mds.inssutils:0.1'
 }
 ```
 
@@ -40,7 +40,7 @@ Gradle Kotlin DSL
 
 ```
 dependencies {
-    implementation("org.mds.inssutils:0.0.4")
+    implementation("org.mds.inssutils:0.1")
 }
 ```
 
@@ -63,7 +63,7 @@ First Step
 <dependency>
     <groupId>org.mds</groupId>
     <artifactId>inssutils</artifactId>
-    <version>0.0.4</version>
+    <version>0.1</version>
 </dependency>
 ```
 
