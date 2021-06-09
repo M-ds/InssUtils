@@ -15,8 +15,11 @@ developed to be compliant with the Belgian standard. Some synonyms for INSS are
 - INSS (Identification Number Social Security)
 
 ## How to use
+
 ### Gradle
+
 Gradle Groovy DSL
+
 ```
 dependencies {
     implementation 'org.mds.inssutils:0.0.4'
@@ -34,6 +37,7 @@ $ gradle install
 ```
 
 Gradle Kotlin DSL
+
 ```
 dependencies {
     implementation("org.mds.inssutils:0.0.4")
@@ -49,38 +53,42 @@ plugins {
 ```
 $ gradle install
 ```
+
 ### Maven
+
 First Step
+
 ```XML
+
 <dependency>
-  <groupId>org.mds</groupId>
-  <artifactId>inssutils</artifactId>
-  <version>0.0.4</version>
+    <groupId>org.mds</groupId>
+    <artifactId>inssutils</artifactId>
+    <version>0.0.4</version>
 </dependency>
 ```
 
-Second Step  
+Second Step
+
 ```
 mvn install
 ```
+
 ## Content of the project
 
 ### Generators
 
 - GenerateRandomInss in different formats
-    - eg. 99032700128
-    - eg. 99.03.27-001.28
-    - eg. 99.03.27.001.28
-    - eg. 99-03-27-001-28
+    - eg. 99032700128  
+    - eg. 99.03.27-001.28  
+    - eg. 99.03.27.001.28  
+    - eg. 99-03-27-001-28  
 - generateInssForMale
 - generateInssForFemale
 - generateInss with your own values
 
 ### Validators
 
-TODO: Still work in progress
-
-- Validate is valid inss
-- Is male (inss)
-- Is female (inss)
+- Validate if inss is a valid inss
+- Validate if inss is a male inss
+- validate if inss is a female inss
 - Extract birthdate (inss)

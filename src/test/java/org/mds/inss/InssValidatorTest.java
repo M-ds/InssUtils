@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.mds.inss.exception.InvalidInssFormat;
 import org.mds.inss.validator.InssValidatorImpl;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +20,21 @@ class InssValidatorTest {
     private final String femaleInssFormat = "98.04.14-124.87";
 
     @Test
-    void isValidInss() {
+    void isValidInss() throws InvalidInssFormat {
+        boolean result = underTest.isValidInss(maleInss);
+        assertTrue(result);
+    }
+
+    @Test
+    void isValidInssWithFormat() throws InvalidInssFormat {
+        boolean result = underTest.isValidInss(femaleInssFormat);
+        assertTrue(result);
+    }
+
+    @Test
+    void isInvalidInss() throws InvalidInssFormat {
+        boolean result = underTest.isValidInss("12345678998");
+        assertFalse(result);
     }
 
     @Test
@@ -76,6 +92,14 @@ class InssValidatorTest {
     }
 
     @Test
-    void extractBirthDate() {
+    void extractBirthDate() throws InvalidInssFormat {
+        LocalDate extractedDate = underTest.extractBirthDate(maleInss);
+        assertEquals(LocalDate.of(1977,2,14), extractedDate);
+    }
+
+    @Test
+    void extractBirthDateWithFormat() throws InvalidInssFormat {
+        LocalDate extractedDate = underTest.extractBirthDate(femaleInssFormat);
+        assertEquals(LocalDate.of(1998,4,14), extractedDate);
     }
 }

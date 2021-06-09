@@ -1,7 +1,10 @@
 package org.mds.inss.domain;
 
+import org.mds.inss.generator.utility.Generator;
+import org.mds.inss.util.GeneralBirthNumberUtil;
 import org.mds.inss.util.InssUtil;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class InternalInss {
@@ -10,6 +13,24 @@ public class InternalInss {
 
     public InternalInss(String inss) {
         this.inss = new Inss(inss);
+    }
+
+    public boolean isValid() {
+        try {
+            LocalDate extractedBirthDate = getBirthDate();
+            int extractedBirthNumber = getBirthNumber();
+            Gender gender = GeneralBirthNumberUtil.determineGender(extractedBirthNumber);
+            Inss generatedInss;
+            if (inssHasNoFormat()) {
+                generatedInss = Generator.getInstance().generateInss(InssFormat.DEFAULT, extractedBirthDate, String.valueOf(extractedBirthNumber), gender);
+            } else {
+                generatedInss = Generator.getInstance().generateInss(InssFormat.READABLE, extractedBirthDate, String.valueOf(extractedBirthNumber), gender);
+            }
+            return generatedInss.isValid();
+        } catch (DateTimeException exception) {
+            System.out.println("Invalid date provided");
+            return false;
+        }
     }
 
     //TODO: Have a look at the different formatting.. As we now always assume we have a format of READABLE or DEFAULT..

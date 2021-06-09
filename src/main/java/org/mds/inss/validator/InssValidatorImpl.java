@@ -13,11 +13,7 @@ public class InssValidatorImpl implements InssValidator {
     @Override
     public boolean isValidInss(String inss) throws InvalidInssFormat {
         InternalInss extractedInss = InssUtil.extractInss(inss);
-        // Extract birthDate
-        // Extract birthNumber
-        // regenerate this inss
-        // check if both are valid
-        return false;
+        return extractedInss.isValid();
     }
 
     @Override

@@ -15,4 +15,9 @@ public class Inss {
     public String toString() {
         return "Inss{ inss= " + inss + " }";
     }
+
+    public boolean isValid() {
+        return !inss.trim().isEmpty()
+                && (inss.length() == InssConstants.INSS_LENGTH_WITHOUT_FORMAT || inss.length() == InssConstants.INSS_LENGTH_WITH_FORMAT);
+    }
 }
