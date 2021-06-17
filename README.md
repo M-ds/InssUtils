@@ -16,62 +16,7 @@ developed to be compliant with the Belgian standard. Some synonyms for INSS are
 
 ## How to use
 
-### Gradle
-
-Gradle Groovy DSL
-
-```
-dependencies {
-    implementation 'org.mds.inssutils:0.1'
-}
-```
-
-```
-plugins {
-    id 'maven'
-}
-```
-
-```
-$ gradle install
-```
-
-Gradle Kotlin DSL
-
-```
-dependencies {
-    implementation("org.mds.inssutils:0.1")
-}
-```
-
-```
-plugins {
-    `maven`
-}
-```
-
-```
-$ gradle install
-```
-
-### Maven
-
-First Step
-
-```XML
-
-<dependency>
-    <groupId>org.mds</groupId>
-    <artifactId>inssutils</artifactId>
-    <version>0.1</version>
-</dependency>
-```
-
-Second Step
-
-```
-mvn install
-```
+**TODO**
 
 ## Content of the project
 

@@ -1,12 +1,21 @@
 package org.mds.inss;
 
-import org.mds.inss.domain.InssFormat;
 import org.mds.inss.domain.Gender;
 import org.mds.inss.domain.Inss;
+import org.mds.inss.domain.InssFormat;
 import org.mds.inss.exception.InvalidBirthNumberException;
 
 import java.time.LocalDate;
 
+/**
+ * This is the main interface which can be used.
+ * Different utility methods are defined and can be used to generate a INSS.
+ * The INSS can be formatted in 4 different formats:
+ * - Default - eg. 99032700128
+ * - Readable - eg. 99.03.27-001.28
+ * - Only Dots - eg. 99.03.27.001.28
+ * - Only Dashes - eg. 99-03-27-001-28
+ */
 public interface InssGenerator {
 
     /**
@@ -81,10 +90,9 @@ public interface InssGenerator {
      * Generates an INSS number based on the parameters provided.
      * Inss number will have the format of "11071234511"
      *
-     * @param birthDate - BirthDate to be put in the Inss generation
+     * @param birthDate   - BirthDate to be put in the Inss generation
      * @param birthNumber - birthNumber. Should only contain whole numbers, maximum value is 997. If this number is exceeded it will be automatically set to 97
-     * @param gender - Needed to perform a check for the validity of the birthNumber
-     *
+     * @param gender      - Needed to perform a check for the validity of the birthNumber
      * @return Generated INSS number and based on the input values
      * @throws InvalidBirthNumberException - Is thrown when the birthNumber is not a whole value
      */
@@ -94,10 +102,9 @@ public interface InssGenerator {
      * Generates an Inss number based on parameters provided.
      * Inss number will have the format of "11071234511"
      *
-     * @param birthDate - BirthDate to be put in the Inss generation
+     * @param birthDate   - BirthDate to be put in the Inss generation
      * @param birthNumber - birthNumber. If greater than 997 it will be set automatically to 997.
-     * @param gender - Needed to perform a check for the validity of the birthNumber.
-     *
+     * @param gender      - Needed to perform a check for the validity of the birthNumber.
      * @return Generated INSS number based on the input values
      */
     Inss generateDefaultInss(LocalDate birthDate, int birthNumber, Gender gender);
@@ -106,10 +113,9 @@ public interface InssGenerator {
      * Generates an INSS number based on the parameters provided.
      * Inss number will have the format of "11.11.11-111.11"
      *
-     * @param birthDate - BirthDate to be put in the Inss generation
+     * @param birthDate   - BirthDate to be put in the Inss generation
      * @param birthNumber - birthNumber. Should only contain whole numbers, maximum value is 997. If this number is exceeded it will be automatically set to 97
-     * @param gender - Needed to perform a check for the validity of the birthNumber
-     *
+     * @param gender      - Needed to perform a check for the validity of the birthNumber
      * @return Generated INSS number and based on the input values
      * @throws InvalidBirthNumberException - Is thrown when the birthNumber is not a whole value
      */
@@ -119,10 +125,9 @@ public interface InssGenerator {
      * Generates an Inss number based on parameters provided.
      * Inss number will have the format of "11.11.11-111.11"
      *
-     * @param birthDate - BirthDate to be put in the Inss generation
+     * @param birthDate   - BirthDate to be put in the Inss generation
      * @param birthNumber - birthNumber. If greater than 997 it will be set automatically to 997.
-     * @param gender - Needed to perform a check for the validity of the birthNumber.
-     *
+     * @param gender      - Needed to perform a check for the validity of the birthNumber.
      * @return Generated INSS number based on the input values
      */
     Inss generateReadableInss(LocalDate birthDate, int birthNumber, Gender gender);
@@ -132,7 +137,6 @@ public interface InssGenerator {
      * Inss number will have the format of "11.11.11-111.11"
      *
      * @param birthDate - BirthDate to be put in the Inss generation
-     *
      * @return Generated male INSS number based on birth date
      */
     Inss generateReadableMaleInss(LocalDate birthDate);
@@ -142,7 +146,6 @@ public interface InssGenerator {
      * Inss number will have the format of "11071234511"
      *
      * @param birthDate - BirthDate to be put in the Inss generation
-     *
      * @return Generated male INSS number based on birth date
      */
     Inss generateDefaultMaleInss(LocalDate birthDate);
@@ -152,7 +155,6 @@ public interface InssGenerator {
      * Inss number will have the format of "11.11.11-111.11"
      *
      * @param birthDate - BirthDate to be put in the Inss generation
-     *
      * @return Generated Female INSS number based on birth date
      */
     Inss generateReadableFemaleInss(LocalDate birthDate);
@@ -162,7 +164,6 @@ public interface InssGenerator {
      * Inss number will have the format of "11071234511"
      *
      * @param birthDate - BirthDate to be put in the Inss generation
-     *
      * @return Generated female INSS number based on birth date
      */
     Inss generateDefaultFemaleInss(LocalDate birthDate);
@@ -170,11 +171,10 @@ public interface InssGenerator {
     /**
      * Generates an INSS number bases on all the provided input variables.
      *
-     * @param inssFormat - Format can be either one of the following: DEFAULT, READABLE, ONLY_DOTS, ONLY_DASHES
-     * @param birthDate - BirthDate to be put in the Inss generation
+     * @param inssFormat  - Format can be either one of the following: DEFAULT, READABLE, ONLY_DOTS, ONLY_DASHES
+     * @param birthDate   - BirthDate to be put in the Inss generation
      * @param birthNumber - birthNumber. Should only contain whole numbers, maximum value is 997. If this number is exceeded it will be automatically set to 97
-     * @param gender - Needed to perform a check for the validity of the birthNumber
-     *
+     * @param gender      - Needed to perform a check for the validity of the birthNumber
      * @return generated INSS number bases on the input variables
      * @throws InvalidBirthNumberException - Is thrown when the birthNumber is not a whole number
      */
@@ -183,11 +183,10 @@ public interface InssGenerator {
     /**
      * Generates an INSS number bases on all the provided input variables.
      *
-     * @param inssFormat - Format can be either one of the following: DEFAULT, READABLE, ONLY_DOTS, ONLY_DASHES
-     * @param birthDate - BirthDate to be put in the Inss generation
+     * @param inssFormat  - Format can be either one of the following: DEFAULT, READABLE, ONLY_DOTS, ONLY_DASHES
+     * @param birthDate   - BirthDate to be put in the Inss generation
      * @param birthNumber - birthNumber. If greater than 997 it will be set automatically to 997.
-     * @param gender - Needed to perform a check for the validity of the birthNumber.
-     *
+     * @param gender      - Needed to perform a check for the validity of the birthNumber.
      * @return generated INSS number bases on the input variables
      */
     Inss generateInss(InssFormat inssFormat, LocalDate birthDate, int birthNumber, Gender gender);
