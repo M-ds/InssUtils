@@ -1,6 +1,7 @@
 package org.mds.inss.generator.format;
 
 import org.mds.inss.domain.InssFormat;
+import org.mds.inss.generator.util.BirthDateUtil;
 
 import java.util.Map;
 
@@ -9,34 +10,31 @@ public class InssFormatUtil {
     public static String formatInss(InssFormat format, Map<String, String> splitBirthDate, String correctedBirthNumber, String lastTwoNumberOfYear, String checkNumber) {
         switch (format) {
             case DEFAULT:
-                return lastTwoNumberOfYear + splitBirthDate.get("month") + splitBirthDate.get("day") + correctedBirthNumber + checkNumber;
+                return lastTwoNumberOfYear + splitBirthDate.get(BirthDateUtil.MONTH) + splitBirthDate.get(BirthDateUtil.DAY) + correctedBirthNumber + checkNumber;
             case ONLY_DOTS:
-                return lastTwoNumberOfYear + "." + splitBirthDate.get("month") + "." + splitBirthDate.get("day") + "." + correctedBirthNumber + "." + checkNumber;
+                return formatFinalInss(splitBirthDate, correctedBirthNumber, lastTwoNumberOfYear, checkNumber, ".", ".");
             case ONLY_DASHES:
-                return lastTwoNumberOfYear + "-" + splitBirthDate.get("month") + "-" + splitBirthDate.get("day") + "-" + correctedBirthNumber + "-" + checkNumber;
+                return formatFinalInss(splitBirthDate, correctedBirthNumber, lastTwoNumberOfYear, checkNumber, "-", "-");
             case READABLE:
             default:
-                return lastTwoNumberOfYear + "." + splitBirthDate.get("month") + "." + splitBirthDate.get("day") + "-" + correctedBirthNumber + "." + checkNumber;
+                return formatFinalInss(splitBirthDate, correctedBirthNumber, lastTwoNumberOfYear, checkNumber, ".", "-");
         }
     }
 
-    public static String addAdditionalCharacterAtStartOfString(String stringWhichNeedModifying, char characterToAdd) {
+    // Method to generate Inss like: 10-12-11.154-12
+    private static String formatFinalInss(Map<String, String> splitBirthDate, String correctedBirthNumber, String lastTwoNumberOfYear, String checkNumber, String firstFormat, String secondOptionalFormat) {
+        return lastTwoNumberOfYear + firstFormat + splitBirthDate.get(BirthDateUtil.MONTH) + firstFormat + splitBirthDate.get(BirthDateUtil.DAY) + secondOptionalFormat + correctedBirthNumber + firstFormat + checkNumber;
+    }
+
+    public static String addAdditionalCharacterAtStartOfString(String stringWhichNeedModifying, String charactersToAdd) {
+        final char[] characters = charactersToAdd.toCharArray();
         StringBuilder sb = new StringBuilder(stringWhichNeedModifying);
-        sb.insert(0, characterToAdd);
-        return sb.toString();
-    }
-
-    public static String addAdditionalZerosBeforeBirthNumber(int originalLastBirtNumber) {
-        StringBuilder sb = new StringBuilder();
-        sb.insert(0, "00");
-        sb.append(originalLastBirtNumber);
-        return sb.toString();
-    }
-
-    public static String formatCheckNumber(long checkNumber) {
-        if (checkNumber < 10) {
-            return "0" + checkNumber;
+        if (characters.length > 0) {
+            sb.insert(0, characters[0]);
         }
-        return String.valueOf(checkNumber);
+        if (characters.length > 1) {
+            sb.insert(1, characters[1]);
+        }
+        return sb.toString();
     }
 }

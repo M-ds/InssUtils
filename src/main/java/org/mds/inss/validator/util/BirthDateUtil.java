@@ -1,50 +1,48 @@
-package org.mds.inss.util;
+package org.mds.inss.validator.util;
 
 import org.mds.inss.domain.Gender;
 import org.mds.inss.domain.Inss;
 import org.mds.inss.domain.InssConstants;
 import org.mds.inss.domain.InssFormat;
-import org.mds.inss.domain.InternalInss;
-import org.mds.inss.exception.InvalidInssFormat;
-import org.mds.inss.generator.utility.Generator;
+import org.mds.inss.generator.service.Generator;
+import org.mds.inss.util.GeneralBirthNumberUtil;
 
 import java.time.LocalDate;
 
-public class InssUtil {
+public class BirthDateUtil {
 
-    public static InternalInss extractInss(final String inss) throws InvalidInssFormat {
-        if (validLength(inss)) {
-            return new InternalInss(inss);
-        }
-        throw new InvalidInssFormat("Please check your provided INSS number. The format is not correct.");
-    }
-
-    private static boolean validLength(final String inss) {
-        return inss.length() == InssConstants.INSS_LENGTH_WITHOUT_FORMAT || inss.length() == InssConstants.INSS_LENGTH_WITH_FORMAT;
-    }
-
-    public static boolean isBirthDateBefore2000(Inss inss) {
-        if (hasNoFormat(inss)) {
+    public boolean isBirthDateBefore2000(Inss inss) {
+        if (inss.isHasNoFormat()) {
             LocalDate birthDate = extractBirthDateBefore2000WithoutFormat(inss);
-            int birthNumber = extractBirthNumber(inss);
+            int birthNumber = inss.extractBirthNumber();
             String stringBirthNumber = String.valueOf(birthNumber);
             Gender gender = GeneralBirthNumberUtil.determineGender(birthNumber);
             Inss generateInss = Generator.getInstance().generateInss(InssFormat.DEFAULT, birthDate, stringBirthNumber, gender);
             return inss.getInss().equals(generateInss.getInss());
         }
         LocalDate birthDate = extractBirthDateBefore2000WithFormat(inss);
-        int birthNumber = extractBirthNumber(inss);
+        int birthNumber = inss.extractBirthNumber();
         String stringBirthNumber = String.valueOf(birthNumber);
         Gender gender = GeneralBirthNumberUtil.determineGender(birthNumber);
         Inss generateInss = Generator.getInstance().generateInss(InssFormat.READABLE, birthDate, stringBirthNumber, gender);
         return inss.getInss().equals(generateInss.getInss());
     }
 
-    private static boolean hasNoFormat(Inss inss) {
-        return inss.getInss().length() == InssConstants.INSS_LENGTH_WITHOUT_FORMAT;
+    public LocalDate getBirthDate(Inss inss) {
+        boolean before2000 = isBirthDateBefore2000(inss);
+        boolean hasNoFormat = hasNoFormat(inss);
+        if (hasNoFormat && before2000) {
+            return extractBirthDateBefore2000WithoutFormat(inss);
+        } else if (!hasNoFormat && before2000) {
+            return extractBirthDateBefore2000WithFormat(inss);
+        } else if (hasNoFormat) {
+            return extractBirthDateAfter2000WithoutFormat(inss);
+        } else {
+            return extractBirthDateAfter2000WithFormat(inss);
+        }
     }
 
-    public static LocalDate extractBirthDateAfter2000WithoutFormat(Inss inss) {
+    private LocalDate extractBirthDateAfter2000WithoutFormat(Inss inss) {
         String birthDate = inss.getInss().substring(0, 6);
         String year = "20" + birthDate.substring(0, 2);
         String month = birthDate.substring(2, 4);
@@ -52,7 +50,7 @@ public class InssUtil {
         return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
 
-    public static LocalDate extractBirthDateAfter2000WithFormat(Inss inss){
+    private static LocalDate extractBirthDateAfter2000WithFormat(Inss inss){
         String birthDate = inss.getInss().substring(0, 8);
         String year = "20" + birthDate.substring(0, 2);
         String month = birthDate.substring(3, 5);
@@ -60,7 +58,7 @@ public class InssUtil {
         return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
 
-    public static LocalDate extractBirthDateBefore2000WithoutFormat(Inss inss) {
+    private static LocalDate extractBirthDateBefore2000WithoutFormat(Inss inss) {
         String birthDate = inss.getInss().substring(0, 6);
         String year = "19" + birthDate.substring(0, 2);
         String month = birthDate.substring(2, 4);
@@ -68,7 +66,7 @@ public class InssUtil {
         return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
 
-    public static LocalDate extractBirthDateBefore2000WithFormat(Inss inss){
+    private static LocalDate extractBirthDateBefore2000WithFormat(Inss inss){
         String birthDate = inss.getInss().substring(0, 8);
         String year = "19" + birthDate.substring(0, 2);
         String month = birthDate.substring(4, 5);
@@ -76,12 +74,7 @@ public class InssUtil {
         return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
 
-    public static int extractBirthNumber(Inss inss) {
-        if (hasNoFormat(inss)) {
-            String birthNumber = inss.getInss().substring(6, 9);
-            return Integer.parseInt(birthNumber);
-        }
-        String birthNumber = inss.getInss().substring(9, 12);
-        return Integer.parseInt(birthNumber);
+    private boolean hasNoFormat(Inss inss) {
+        return inss.getInss().length() == InssConstants.INSS_LENGTH_WITHOUT_FORMAT;
     }
 }
