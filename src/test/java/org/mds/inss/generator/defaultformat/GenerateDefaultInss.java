@@ -28,6 +28,16 @@ public class GenerateDefaultInss {
     }
 
     @Test
+    void generateFemaleInssWithBirthNumber299() throws InvalidBirthNumberException {
+        Inss result = underTest.generateDefaultInss(
+                LocalDate.of(2001, 10, 7),
+                "299",
+                Gender.FEMALE
+        );
+        assertEquals("01100730095", result.getInss());
+    }
+
+    @Test
     void generateDefaultFemaleInss() throws InvalidBirthNumberException {
         Inss result = underTest.generateDefaultInss(
                 LocalDate.of(1993, 2, 28),

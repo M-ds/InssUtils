@@ -6,7 +6,7 @@ import org.mds.inss.domain.InssConstants;
 import org.mds.inss.domain.InssFormat;
 import org.mds.inss.domain.InternalInss;
 import org.mds.inss.exception.InvalidInssFormat;
-import org.mds.inss.generator.utility.Generator;
+import org.mds.inss.generator.util.Generator;
 
 import java.time.LocalDate;
 

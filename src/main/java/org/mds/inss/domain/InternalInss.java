@@ -1,6 +1,6 @@
 package org.mds.inss.domain;
 
-import org.mds.inss.generator.utility.Generator;
+import org.mds.inss.generator.util.Generator;
 import org.mds.inss.util.GeneralBirthNumberUtil;
 import org.mds.inss.util.InssUtil;
 

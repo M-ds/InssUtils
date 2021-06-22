@@ -6,6 +6,7 @@ import org.mds.inss.domain.Inss;
 import org.mds.inss.generator.InssGeneratorImpl;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GenerateRandomDefaultInss {
 
@@ -27,5 +28,17 @@ public class GenerateRandomDefaultInss {
     void generateDefaultMaleInss() {
         Inss result = underTest.generateDefaultMaleInss();
         assertNotNull(result);
+    }
+
+    @Test
+    void generateOverOneHonderdInssNumbersAllShouldBeValid() {
+        for (int i = 0; i < 1000; i++) {
+            Inss result = underTest.generateDefaultInss();
+            assertNotNull(result);
+            if (!result.isValid()) {
+                System.out.println(result);
+            }
+            assertTrue(result.isValid());
+        }
     }
 }

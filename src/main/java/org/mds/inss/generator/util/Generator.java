@@ -1,4 +1,4 @@
-package org.mds.inss.generator.utility;
+package org.mds.inss.generator.util;
 
 import org.mds.inss.domain.Gender;
 import org.mds.inss.domain.Inss;
@@ -12,7 +12,12 @@ public class Generator {
 
     private static Generator INSTANCE;
 
+    private final BirthNumberUtil birthNumberUtil;
+    private final CheckNumberUtil checkNumberUtil;
+
     private Generator() {
+        this.birthNumberUtil = new BirthNumberUtil();
+        this.checkNumberUtil = new CheckNumberUtil();
     }
 
     public static Generator getInstance() {
@@ -24,17 +29,14 @@ public class Generator {
 
     public Inss generateInss(final InssFormat format, final LocalDate birthDate, final String birthNumber, final Gender gender) {
         Map<String, String> splitBirthDate = BirthDateUtil.extractBirthDate(birthDate);
-        String correctedBirthNumber = BirthNumberUtil.getBirthNumber(birthNumber, gender);
+        String correctedBirthNumber = birthNumberUtil.getCorrectedBirthNumber(birthNumber, gender);
 
-        String year = splitBirthDate.get("year");
+        String year = splitBirthDate.get(BirthDateUtil.YEAR);
         String lastTwoNumberOfYear = year.substring(year.length() - 2);
 
-        String inssWithoutSecurityCode = lastTwoNumberOfYear
-                + splitBirthDate.get("month")
-                + splitBirthDate.get("day")
-                + correctedBirthNumber;
+        String inssWithoutSecurityCode = formatInssWithoutSecurityCode(splitBirthDate, correctedBirthNumber, lastTwoNumberOfYear);
 
-        String formattedCheckNumber = CheckNumberUtil.generateCheckNumber(Integer.parseInt(year), inssWithoutSecurityCode);
+        String formattedCheckNumber = checkNumberUtil.generateCheckNumber(Integer.parseInt(year), inssWithoutSecurityCode);
 
         return new Inss(
                 InssFormatUtil.formatInss(
@@ -45,6 +47,13 @@ public class Generator {
                         formattedCheckNumber
                 )
         );
+    }
+
+    private String formatInssWithoutSecurityCode(Map<String, String> splitBirthDate, String correctedBirthNumber, String lastTwoNumberOfYear) {
+        return lastTwoNumberOfYear
+                + splitBirthDate.get(BirthDateUtil.MONTH)
+                + splitBirthDate.get(BirthDateUtil.DAY)
+                + correctedBirthNumber;
     }
 
 }
