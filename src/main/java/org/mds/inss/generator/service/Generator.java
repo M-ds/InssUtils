@@ -1,9 +1,12 @@
-package org.mds.inss.generator.util;
+package org.mds.inss.generator.service;
 
 import org.mds.inss.domain.Gender;
 import org.mds.inss.domain.Inss;
 import org.mds.inss.domain.InssFormat;
 import org.mds.inss.generator.format.InssFormatUtil;
+import org.mds.inss.generator.util.BirthDateUtil;
+import org.mds.inss.generator.util.BirthNumberUtil;
+import org.mds.inss.generator.util.CheckNumberUtil;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -55,5 +58,4 @@ public class Generator {
                 + splitBirthDate.get(BirthDateUtil.DAY)
                 + correctedBirthNumber;
     }
-
 }

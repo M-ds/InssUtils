@@ -35,10 +35,10 @@ public class GenerateRandomDefaultInss {
         for (int i = 0; i < 1000; i++) {
             Inss result = underTest.generateDefaultInss();
             assertNotNull(result);
-            if (!result.isValid()) {
+            if (!result.hasValidLength()) {
                 System.out.println(result);
             }
-            assertTrue(result.isValid());
+            assertTrue(result.hasValidLength());
         }
     }
 }

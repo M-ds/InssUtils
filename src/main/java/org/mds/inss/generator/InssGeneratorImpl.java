@@ -7,7 +7,7 @@ import org.mds.inss.exception.InvalidBirthNumberException;
 import org.mds.inss.domain.InssFormat;
 import org.mds.inss.util.GeneralBirthNumberUtil;
 import org.mds.inss.util.RandomnessUtil;
-import org.mds.inss.generator.util.Generator;
+import org.mds.inss.generator.service.Generator;
 
 import java.time.LocalDate;
 

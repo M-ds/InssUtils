@@ -1,36 +1,43 @@
 package org.mds.inss.validator;
 
 import org.mds.inss.InssValidator;
-import org.mds.inss.domain.InternalInss;
+import org.mds.inss.domain.Inss;
 import org.mds.inss.exception.InvalidInssFormat;
 import org.mds.inss.util.GeneralBirthNumberUtil;
-import org.mds.inss.util.InssUtil;
+import org.mds.inss.validator.util.BirthDateUtil;
+import org.mds.inss.validator.util.InssUtil;
 
 import java.time.LocalDate;
 
 public class InssValidatorImpl implements InssValidator {
 
+    private final BirthDateUtil birthDateUtil;
+    private final InssUtil inssUtil;
+
+    public InssValidatorImpl() {
+        this.birthDateUtil = new BirthDateUtil();
+        this.inssUtil = new InssUtil();
+    }
+
     @Override
     public boolean isValidInss(String inss) throws InvalidInssFormat {
-        InternalInss extractedInss = InssUtil.extractInss(inss);
-        return extractedInss.isValid();
+        return inssUtil.isValidInss(InssUtil.extractInss(inss));
     }
 
     @Override
     public boolean isMaleInss(String inss) throws InvalidInssFormat {
-        InternalInss extractedInss = InssUtil.extractInss(inss);
-        return GeneralBirthNumberUtil.isOdd(extractedInss.getBirthNumber());
+        Inss extractedInss = InssUtil.extractInss(inss);
+        return GeneralBirthNumberUtil.isOdd(extractedInss.extractBirthNumber());
     }
 
     @Override
     public boolean isFemaleInss(String inss) throws InvalidInssFormat {
-        InternalInss extractedInss = InssUtil.extractInss(inss);
-        return GeneralBirthNumberUtil.isEven(extractedInss.getBirthNumber());
+        Inss extractedInss = InssUtil.extractInss(inss);
+        return GeneralBirthNumberUtil.isEven(extractedInss.extractBirthNumber());
     }
 
     @Override
     public LocalDate extractBirthDate(String inss) throws InvalidInssFormat {
-        InternalInss extractedInss = InssUtil.extractInss(inss);
-        return extractedInss.getBirthDate();
+        return birthDateUtil.getBirthDate(InssUtil.extractInss(inss));
     }
 }
