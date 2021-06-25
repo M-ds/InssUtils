@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class InssTest {
+public class InssTest {
 
     private final Inss validInssWithoutFormat = new Inss("88052801063");
     private final Inss validInssWithOneBirthNumberWithoutFormat = new Inss("88052800963");
@@ -16,8 +16,7 @@ class InssTest {
     private final Inss validInssWithFormat = new Inss("75.05.28-010.81");
     private final Inss validInssWithOneBirthNumberFormat = new Inss("66.08.03-009.63");
     private final Inss inssWithThreeBirthNumbers = new Inss("88.09.28-345.63");
-    private final Inss inssWithFormatAfter2000 = new Inss("01.11.07-069.42");
-    
+
     private final BirthDateUtil birthDateUtil = new BirthDateUtil();
 
     @Test
@@ -27,21 +26,9 @@ class InssTest {
     }
 
     @Test
-    void getBirthDateWithFormat() {
-        LocalDate extractedBirthDate = birthDateUtil.getBirthDate(validInssWithFormat);
-        assertEquals(LocalDate.of(1975, 5, 28), extractedBirthDate);
-    }
-
-    @Test
     void getBirthDateAfter2000WithoutFormat() {
         LocalDate extractedBirthDate = birthDateUtil.getBirthDate(inssWithThreeBirthNumbersWithoutFormat);
         assertEquals(LocalDate.of(2003, 5, 28), extractedBirthDate);
-    }
-
-    @Test
-    void getBirthDateAfter2000WithFormat() {
-        LocalDate extractedBirthDate = birthDateUtil.getBirthDate(inssWithFormatAfter2000);
-        assertEquals(LocalDate.of(2001, 11, 7), extractedBirthDate);
     }
 
     @Test

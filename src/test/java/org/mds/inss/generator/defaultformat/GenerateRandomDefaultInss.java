@@ -32,12 +32,9 @@ public class GenerateRandomDefaultInss {
 
     @Test
     void generateOverOneHonderdInssNumbersAllShouldBeValid() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             Inss result = underTest.generateDefaultInss();
             assertNotNull(result);
-            if (!result.hasValidLength()) {
-                System.out.println(result);
-            }
             assertTrue(result.hasValidLength());
         }
     }

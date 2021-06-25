@@ -30,7 +30,7 @@ public class Inss {
         return "Inss{ inss= " + inss + " }";
     }
 
-    public boolean isHasNoFormat() {
+    public boolean hasNoFormat() {
         return hasNoFormat;
     }
 }

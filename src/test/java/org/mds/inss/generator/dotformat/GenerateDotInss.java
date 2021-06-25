@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mds.inss.InssGenerator;
 import org.mds.inss.domain.Gender;
 import org.mds.inss.domain.Inss;
+import org.mds.inss.domain.InssFormat;
 import org.mds.inss.exception.InvalidBirthNumberException;
 import org.mds.inss.generator.InssGeneratorImpl;
-import org.mds.inss.domain.InssFormat;
 import org.mds.inss.util.RandomnessUtil;
 
 import java.time.LocalDate;

@@ -13,15 +13,16 @@ import java.time.LocalDate;
 
 public class InssUtil {
 
+    private final static String ONLY_KEEP_DIGITS = "[^\\d]";
     private final BirthDateUtil birthDateUtil;
 
-    public InssUtil(){
+    public InssUtil() {
         this.birthDateUtil = new BirthDateUtil();
     }
 
     public static Inss extractInss(final String inss) throws InvalidInssFormat {
         if (validLength(inss)) {
-            return new Inss(inss);
+            return extractFormatIfPresent(new Inss(inss));
         }
         throw new InvalidInssFormat("Please check your provided INSS number. The format is not correct.");
     }
@@ -35,18 +36,22 @@ public class InssUtil {
             LocalDate extractedBirthDate = birthDateUtil.getBirthDate(inss);
             int extractedBirthNumber = inss.extractBirthNumber();
             Gender gender = GeneralBirthNumberUtil.determineGender(extractedBirthNumber);
-            Inss generatedInss;
-            if (inss.isHasNoFormat()) {
-                generatedInss = Generator.getInstance().generateInss(InssFormat.DEFAULT, extractedBirthDate, String.valueOf(extractedBirthNumber), gender);
-            } else {
-                generatedInss = Generator.getInstance().generateInss(InssFormat.READABLE, extractedBirthDate, String.valueOf(extractedBirthNumber), gender);
-            }
-            return generatedInss.hasValidLength();
+            Inss originalInssWithoutMarkup = extractFormatIfPresent(inss);
+            Inss generatedInss = Generator.getInstance().generateInss(InssFormat.DEFAULT, extractedBirthDate, String.valueOf(extractedBirthNumber), gender);
+            return originalInssWithoutMarkup.getInss().equals(generatedInss.getInss());
         } catch (
                 DateTimeException exception) {
             System.out.println("Invalid date provided");
             return false;
         }
 
+    }
+
+    private static Inss extractFormatIfPresent(Inss inss) {
+        if (!inss.hasNoFormat()) {
+            String inssWithoutFormat = inss.getInss().replaceAll(ONLY_KEEP_DIGITS, "");
+            return new Inss(inssWithoutFormat);
+        }
+        return inss;
     }
 }

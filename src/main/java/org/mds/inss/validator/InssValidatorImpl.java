@@ -32,8 +32,7 @@ public class InssValidatorImpl implements InssValidator {
 
     @Override
     public boolean isFemaleInss(String inss) throws InvalidInssFormat {
-        Inss extractedInss = InssUtil.extractInss(inss);
-        return GeneralBirthNumberUtil.isEven(extractedInss.extractBirthNumber());
+        return GeneralBirthNumberUtil.isEven(InssUtil.extractInss(inss).extractBirthNumber());
     }
 
     @Override
