@@ -44,9 +44,9 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
-            groupId = 'org.mds'
+            groupId = 'nl.mds'
             artifactId = 'inssutils'
-            version = '0.1.3'
+            version = '0.2'
 
             from(components.java)
         }

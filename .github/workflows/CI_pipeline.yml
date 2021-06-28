@@ -27,8 +27,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build with Gradle & generate JavaDocs
+        run: ./gradlew build javadoc
 
       - name: codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
