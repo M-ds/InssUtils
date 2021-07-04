@@ -1,8 +1,8 @@
 plugins {
     id("java")
     id("jacoco")
-    // Necessary to publish artifacts after int he publish section
-    id("maven-publish")
+    id("maven")
+    id("signing")
 }
 
 repositories {
@@ -31,28 +31,69 @@ jacoco {
     toolVersion = "0.8.5"
 }
 
-java {
-    withSourcesJar()
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/m-ds/inssutils")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("PUBLISH_API_KEY")
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            groupId = 'nl.mds'
-            artifactId = 'inssutils'
-            version = '0.2.1'
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
 
-            from(components.java)
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+// Defined artifacts to be signed
+signing {
+    sign configurations.archives
+}
+
+group = "io.github.m-ds.inssutils"
+version = "0.2.2"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'InssUtils'
+                packaging 'jar'
+                description 'This repository has different utlity classes which can be used to either validate a INSS or generate one.'
+                url 'https://github.com/M-ds/InssUtils'
+
+                scm {
+                    url 'https://github.com/M-ds/InssUtils'
+                    connection 'scm:https://github.com/M-ds/InssUtils.git'
+                    developerConnection 'scm:git://github.com/M-ds/InssUtils.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT Licence'
+                        url 'https://github.com/M-ds/InssUtils/blob/main/LICENSE'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'm-ds'
+                        name 'Michiel de Smet'
+                        email 'michieldesmet1994@gmail.com'
+                    }
+                }
+            }
         }
     }
 }
