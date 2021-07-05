@@ -28,7 +28,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle & generate JavaDocs
-        run: ./gradlew build javadoc
+        run: ./gradlew build -x signArchives
 
       - name: codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
