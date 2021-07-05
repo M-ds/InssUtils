@@ -21,13 +21,13 @@ In order to use the project just copy past one of the following to your pom.xml 
 Gradle Groovy DSL
 
 ```Groovy
-implementation 'io.github.m-ds.inssutils:InssUtils:0.2.2'
+implementation 'io.github.m-ds.inssutils:InssUtils:1.0'
 ```
 
 Gradle Kotlin DSL
 
 ```Kotlin
-implementation("io.github.m-ds.inssutils:InssUtils:0.2.2")
+implementation("io.github.m-ds.inssutils:InssUtils:1.0")
 ```
 
 **Maven**
@@ -37,7 +37,7 @@ implementation("io.github.m-ds.inssutils:InssUtils:0.2.2")
 <dependency>
     <groupId>io.github.m-ds.inssutils</groupId>
     <artifactId>InssUtils</artifactId>
-    <version>0.2.2</version>
+    <version>1.0</version>
 </dependency>
 ```
 
