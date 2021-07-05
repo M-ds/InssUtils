@@ -51,7 +51,7 @@ signing {
 }
 
 group = "io.github.m-ds.inssutils"
-version = "0.2.2"
+version = "1.0"
 
 uploadArchives {
     repositories {
