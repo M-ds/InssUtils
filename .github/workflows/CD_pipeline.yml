@@ -1,0 +1,27 @@
+name: Artifact Deployment
+
+on:
+  push:
+    tags:
+      - '*'
+  release:
+    types:
+      - created
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          server-id: maven
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          gpg-private-key: ${{ secrets.SIGNING_KEYID }}
+          gpg-passphrase: ${{ secrets.SIGNING_PASSWORD }}
+      - name: Publish package
+        run: gradle uploadArchives
